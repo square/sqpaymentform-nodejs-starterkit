@@ -1,0 +1,16 @@
+{
+  "name": "sqpaymentform-nodejs-starterkit",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "express": "*",
+    "square-connect": "^2.20190508.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
+  }
+}

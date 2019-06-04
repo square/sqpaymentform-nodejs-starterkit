@@ -13,8 +13,38 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- link to the SqPaymentForm library -->
+    <script type="text/javascript" src="https://js.squareup.com/v2/paymentform">
+    </script>
+    <!-- link to the local SqPaymentForm initialization -->
+    <script type="text/javascript" src="mysqpaymentform.js">
+    </script>
+    <!-- link to the local custom styles for SqPaymentForm -->
+    <link rel="stylesheet" type="text/css" href="mysqpaymentform.css">
   </head>
   <body>
-    Get ready for your first payment with Square!
+    <div id="form-container">
+      <div id="sq-ccbox">
+        <form id="nonce-form" novalidate action="process-payment" method="post">
+          <fieldset>
+            <div id="sq-card-number"></div>
+            <div class="third">
+              <div id="sq-expiration-date"></div>
+            </div>
+            <div class="third">
+              <div id="sq-cvv"></div>
+            </div>
+            <div class="third">
+              <div id="sq-postal-code"></div>
+            </div>
+          </fieldset>
+          <button id="sq-creditcard" class="button-credit-card" onclick="onGetCardNonce(event)">Pay $1.00</button>
+          <!--
+            After a nonce is generated it will be assigned to this hidden input field.
+          -->
+          <input type="hidden" id="card-nonce" name="nonce">
+        </form>
+      </div> <!-- end #sq-ccbox -->
+     </div> <!-- end #form-container -->
   </body>
 </html>

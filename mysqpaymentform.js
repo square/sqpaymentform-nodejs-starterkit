@@ -52,7 +52,7 @@ const paymentForm = new SqPaymentForm({
   },
   postalCode: {
     elementId: 'sq-postal-code',
-    placeholder: '12345'
+    placeholder: 'Postal'
   },
 
   // SqPaymentForm callback functions

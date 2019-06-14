@@ -33,21 +33,21 @@ const oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = accessToken;
 
 app.post('/process-payment', function(req, res){
-  const request_params = req.body;
+  const requestParams = req.body;
 
-  const idempotency_key = require('crypto').randomBytes(64).toString('hex');
+  const idempotencyKey = require('crypto').randomBytes(64).toString('hex');
 
   // Charge the customer's card
-  const transactions_api = new squareConnect.TransactionsApi();
-  const request_body = {
-    card_nonce: request_params.nonce,
+  const transactionsApi = new squareConnect.TransactionsApi();
+  const requestBody = {
+    card_nonce: requestParams.nonce,
     amount_money: {
       amount: 100, // $1.00 charge
       currency: 'USD'
     },
-    idempotency_key: idempotency_key
+    idempotency_key: idempotencyKey
   };
-  transactions_api.charge(locationId, request_body).then(function(data) {
+  transactionsApi.charge(locationId, requestBody).then(function(data) {
     const json= JSON.stringify(data);
     res.status(200).json({
       'title': 'Payment Successful',

@@ -19,7 +19,7 @@ const app = express();
 const port = 3000;
 
 // Set the Access Token
-const accessToken = 'EAAAEGnApsUOe2PS2E6GgSazx6VzcjnYjjiGSSAMBfm1VQVr8uuxXx34d4SKdefm';
+const accessToken = 'REPLACE_WITH_ACCESS_TOKEN';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

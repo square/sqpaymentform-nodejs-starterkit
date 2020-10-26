@@ -19,7 +19,7 @@ const app = express();
 const port = 3000;
 
 // Set the Access Token
-const accessToken = 'REPLACE_WITH_ACCESS_TOKEN';
+const accessToken = 'EAAAEGnApsUOe2PS2E6GgSazx6VzcjnYjjiGSSAMBfm1VQVr8uuxXx34d4SKdefm';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -41,7 +41,8 @@ app.post('/process-payment', async (req, res) => {
   const request_params = req.body;
 
   // length of idempotency_key should be less than 45
-  const idempotency_key = crypto.randomBytes(22).toString('hex');
+  const idempotency_key = request_params.idempotency_key;//crypto.randomBytes(22).toString('hex');
+  console.log(`itempotency key from client ${idempotency_key}`);
 
   // Charge the customer's card
   const payments_api = new squareConnect.PaymentsApi();
@@ -51,7 +52,7 @@ app.post('/process-payment', async (req, res) => {
       amount: 100, // $1.00 charge
       currency: 'USD'
     },
-    idempotency_key: idempotency_key
+    idempotency_key:request_params.idempotency_key  //idempotency_key
   };
 
   try {

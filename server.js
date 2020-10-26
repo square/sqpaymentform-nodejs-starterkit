@@ -42,12 +42,12 @@ app.post('/process-payment', async (req, res) => {
 
   // length of idempotency_key should be less than 45
   const idempotency_key = request_params.idempotency_key;//crypto.randomBytes(22).toString('hex');
-  console.log(`itempotency key from client ${idempotency_key}`);
 
   // Charge the customer's card
   const payments_api = new squareConnect.PaymentsApi();
   const request_body = {
     source_id: request_params.nonce,
+    location_id: request_params.location_id,
     amount_money: {
       amount: 100, // $1.00 charge
       currency: 'USD'

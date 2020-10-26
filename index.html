@@ -33,13 +33,13 @@
     <script type="text/javascript">
       // Create and initialize a payment form object
       const idempotency_key = uuidv4();
-      console.log(idempotency_key);
+      const location_ID = "REPLACE_WITH_LOCATION_ID";
       const paymentForm = new SqPaymentForm({
         // Initialize the payment form elements
 
         //TODO: Replace with your sandbox application ID
-        applicationId: "sandbox-sq0idb-vK1CdlcrR1xUI1uWOuCFPA",
-        locationID: "",
+        applicationId: "REPLACE_WITH_APPLICATION_ID",
+        locationID: location_ID,
         inputClass: 'sq-input',
         autoBuild: false,
         // Customize the CSS for SqPaymentForm iframe elements
@@ -92,7 +92,8 @@
                 },
                 body: JSON.stringify({
                   nonce: nonce,
-                  idempotency_key: idempotency_key
+                  idempotency_key: idempotency_key,
+                  location_id: location_ID
                 })
               })
               .catch(err => {
@@ -100,53 +101,51 @@
               })
               .then(response => {
                 if (!response.ok) {
-                  return response.json().then(errorInfo => Promise.reject(errorInfo)); //UPDATE HERE
+                  return response.json().then(
+                    errorInfo => Promise.reject(errorInfo)); //UPDATE HERE
                 }
                 return response.json(); //UPDATE HERE
               })
               .then(data => {
                 console.log(data); //UPDATE HERE
                 alert('Payment complete successfully!\nCheck browser developer console for more details');
-                setPayButtonEnableState(false)
+                setPayButtonDisableState(false)
 
               })
               .catch(err => {
                 console.error(err);
+                //Generate a new idempotency key for next payment attempt
+                idempotency_key = uuidv4();
                 alert('Payment failed to complete!\nCheck browser developer console for more details');
               });
             }
         }
       });
       paymentForm.build();
+
+      //Generate a random UUID as an idempotency key for the payment request
       function uuidv4() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
           var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
           return v.toString(16);
         });
       }
-      function setPayButtonEnableState(newState) {
-        //Disable the pay button until the nonce is submitted
+
+      //Disable or enable the Pay button to prevent duplicate payment requests
+      function setPayButtonDisableState(newState) {
         var payButton = document.getElementById("sq-creditcard");
         payButton.disabled = newState;
-        if (payButton.disabled) {
-          payButton.style.background = "#FFFFFF";
-        }
-        else {
-          payButton.style.background = "#4A90E2";
-        }
+
+        //Redraw the payment button
         var buttonContent = payButton.innerHTML;
         payButton.innerHTML = buttonContent;
       }
+
       // onGetCardNonce is triggered when the "Pay $1.00" button is clicked
       function onGetCardNonce(event) {
 
         //Disable the pay button until the nonce is submitted
-        setPayButtonEnableState(true)
-        // var payButton = document.getElementById("sq-creditcard");
-        // payButton.disabled = true;
-        // payButton.style.background = "#FFFFFF";
-        // var buttonContent = payButton.innerHTML;
-        // payButton.innerHTML = buttonContent;
+        setPayButtonDisableState(true)
 
         // Don't submit the form until SqPaymentForm returns with a nonce
         event.preventDefault();

@@ -40,9 +40,6 @@ defaultClient.basePath = 'https://connect.squareupsandbox.com';
 app.post('/process-payment', async (req, res) => {
   const request_params = req.body;
 
-  // length of idempotency_key should be less than 45
-  const idempotency_key = request_params.idempotency_key;
-
   // Charge the customer's card
   const payments_api = new squareConnect.PaymentsApi();
   const request_body = {
@@ -52,7 +49,7 @@ app.post('/process-payment', async (req, res) => {
       amount: 100, // $1.00 charge
       currency: 'USD'
     },
-    idempotency_key: idempotency_key
+    idempotency_key: request_params.idempotency_key;
   };
 
   try {

@@ -49,7 +49,7 @@ app.post('/process-payment', async (req, res) => {
       amount: 100, // $1.00 charge
       currency: 'USD'
     },
-    idempotency_key: request_params.idempotency_key;
+    idempotency_key: request_params.idempotency_key
   };
 
   try {

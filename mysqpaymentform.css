@@ -106,7 +106,3 @@ fieldset {
 .button-credit-card:hover {
   background-color: #4281CB;
 }
-/* Set a background color for "Pay with Credit Card" button when disabled */
-.button-credit-card:disabled {
-  background-color: #ccc;
-}

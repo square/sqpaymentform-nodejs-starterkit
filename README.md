@@ -2,6 +2,8 @@
 
 **SqPaymentForm has been replaced with the [Web Payments SDK](https://developer.squareup.com/docs/web-payments/overview). Please refer the Web Payments SDK [documentation](https://developer.squareup.com/docs/web-payments/overview) for more info.**
 
+---
+
 * Ensure you have npm installed (`npm -v` in your terminal). If not please follow the instructions for your OS: https://www.npmjs.com/get-npm
 
 * Open your terminal and type the following to install the packages:
